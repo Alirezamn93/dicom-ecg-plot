@@ -116,7 +116,7 @@ class ECG(object):
     """The class representing the ECG object
     """
 
-    paper_w, paper_h = 297.0, 210.0
+    paper_w, paper_h = 270.0, 190.0
 
     # Dimensions in mm of plot area
     width = 250.0
@@ -143,6 +143,7 @@ class ECG(object):
             raise Exception
 
         def wadoget(stu, ser, obj):
+            return None
             """Query the WADO server.
 
             @return: a buffer containing the DICOM object (the WADO response).
@@ -158,6 +159,7 @@ class ECG(object):
             headers = {'content-type': 'application/json'}
 
             resp = requests.get(WADOSERVER, params=payload, headers=headers)
+            
             return io.BytesIO(resp.content)
 
         if isinstance(source, dict):
@@ -569,7 +571,7 @@ class ECG(object):
                 )
 
                 self.axis.text(
-                    h + 40,
+                    h,
                     v_delta + row_height / 3,
                     meaning,
                     zorder=50,
@@ -584,7 +586,7 @@ class ECG(object):
 
         self.draw_grid(minor_axis)
         self.plot(layoutid, mm_mv)
-        self.print_info(interpretation)
+        # self.print_info(interpretation)
 
 
 class ECGReadFileError(dicom.filereader.InvalidDicomError):
